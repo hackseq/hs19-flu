@@ -2,9 +2,36 @@ import dendropy
 import re
 import functools
 import itertools
+import sys
+import argparse
+import os
+
 
 ###########################################
-# Input/Output files
+# Command line interface
+this_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+default_out = os.path.join(this_dir, "clade_assignments.out")
+
+parser = argparse.ArgumentParser(description='Influenza sequence Clade assignment')
+parser.add_argument('alignment', 
+        type=str, 
+        help='FASTA file containing aligned sequences to assign')
+parser.add_argument('clade_criteria', 
+        type=str, 
+        help='tsv file containing criteria for a sequence to belong to a clade. '
+        'Note: clade file is influenza strain specific (eg H3N2)'
+        )
+parser.add_argument('--output',
+        type = str,
+        help = f'path to desired output. Default: {default_out}. '
+        'The output file is a tsv matching sequences names from FASTA to clades'
+        )
+
+args = parser.parse_args()
+###########################################
+
+###########################################
+# Input/Output files: example
 
 ffasta   = 'aligned.fasta'      # Input: FASTA file correctly aligned (1701 nucleotides) 
 fclades  = 'clades_h3n2_ha.tsv' # Input: Criteria to belong to a clade
