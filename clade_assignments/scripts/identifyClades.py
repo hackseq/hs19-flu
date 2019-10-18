@@ -147,8 +147,6 @@ genomesNoClade = []
 
 seqsWithError = []
 
-first_seq = True
-
 with open(args.alignment, 'r') as f:
 
 	p_name = re.compile(">(.+)")
