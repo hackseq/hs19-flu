@@ -14,7 +14,7 @@ for file in os.listdir(directory):
                  for line in f:
                      sline = line.strip()
                      if line.startswith('>'):
-                         dat = sline.split(',')
+                         dat = sline.split('_')
                          fout.write(dat[0] + '\n')
                      else:
                          fout.write(sline + '\n')
