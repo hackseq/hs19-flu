@@ -56,7 +56,7 @@ fnameout = 'FASTA2018-5_clades.tsv' # Output: TSV file with sequence names and i
 # CDS             1036..1698
 #                 /product="HA2 protein"
 #                 /gene="HA2"
-with open(args.reference, 'rU')as gbfile:
+with open(args.reference, 'r')as gbfile:
 	genbank = SeqIO.read(gbfile, 'gb')
 	for feature in genbank.features:
 		if('host' in feature.qualifiers):
