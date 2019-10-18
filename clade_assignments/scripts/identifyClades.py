@@ -59,7 +59,7 @@ fnameout = 'FASTA2018-5_clades.tsv' # Output: TSV file with sequence names and i
 with open(args.reference, 'rU')as gbfile:
 	genbank = SeqIO.read(gbfile, 'gb')
 	for feature in genbank.features:
-		if('codon_start' in feature.qualifiers):
+		if('host' in feature.qualifiers):
 			sequenceSize = int(feature.location.end)
 		if('gene' in feature.qualifiers):
 			if(feature.qualifiers['gene'][0] == 'HA1'):
