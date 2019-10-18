@@ -5,6 +5,7 @@ import itertools
 import sys
 import argparse
 import os
+from Bio import SeqIO
 
 
 ###########################################
@@ -21,6 +22,9 @@ parser.add_argument('clade_criteria',
         help='tsv file containing criteria for a sequence to belong to a clade. '
         'Note: clade file is influenza strain specific (eg H3N2)'
         )
+parser.add_argument('--reference', 
+        type=str, 
+        help='Genbank file containing the reference gene')
 parser.add_argument('--output',
         type = str,
         help = f'path to desired output. Default: {default_out}. '
@@ -52,13 +56,18 @@ fnameout = 'FASTA2018-5_clades.tsv' # Output: TSV file with sequence names and i
 # CDS             1036..1698
 #                 /product="HA2 protein"
 #                 /gene="HA2"
-HA1_beg = 49
-HA1_end = 1035
-
-HA2_beg = 1036
-HA2_end = 1698
-
-sequenceSize = 1701
+with open(args.reference, 'rU')as gbfile:
+	genbank = SeqIO.read(gbfile, 'gb')
+	for feature in genbank.features:
+		if('codon_start' in feature.qualifiers):
+			sequenceSize = int(feature.location.end)
+		if('gene' in feature.qualifiers):
+			if(feature.qualifiers['gene'][0] == 'HA1'):
+				HA1_beg = int(feature.location.start) + 1
+				HA1_end = int(feature.location.end)
+			if(feature.qualifiers['gene'][0] == 'HA2'):
+				HA2_beg = int(feature.location.start)  + 1
+				HA2_end = int(feature.location.end)
 
 ###########################################
 # Read clade constrains 
