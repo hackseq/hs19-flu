@@ -8,8 +8,6 @@ for file in os.listdir(directory):
          in_file = filename;
          prefix, postfix = in_file.split(".")[0], in_file.split(".")[1]
          newfname = f"{prefix}_clean_labels.{postfix}"
-         print(newfname)
-         continue
 
          with open(in_file, 'r') as f:
              with open(newfname, 'w') as fout:
