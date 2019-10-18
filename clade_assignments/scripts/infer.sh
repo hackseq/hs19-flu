@@ -8,7 +8,7 @@ python3 -m augur ancestral --tree ../trees/flutreeH1N1_HA.tree --alignment ../..
 
 python3 -m augur ancestral --tree ../trees/flutreeH3N2_HA.tree --alignment ../../ali/ALIGNED-H3N2.fa --output ../../infer/INFERRED-H3N2.json --inference joint --nthreads auto
 
-python3 -m augur ancestral --tree ../trees/flutreeH3N2_HA.tree --alignment ../../ali/ALIGNED-H3N2NA.fa--output ../../infer/INFERRED-H3N2NA.json --inference joint --nthreads auto
+python3 -m augur ancestral --tree ../trees/flutreeH3N2_HA.tree --alignment ../../ali/ALIGNED-H3N2NA.fa --output ../../infer/INFERRED-H3N2NA.json --inference joint --nthreads auto
 
 python3 -m augur ancestral --tree ../trees/flutreeH3N2_HA.tree --alignment ../../ali/ALIGNED-PH3N2.fa --output ../../infer/INFERRED-PH3N2.json --inference joint --nthreads auto
 
