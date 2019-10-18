@@ -16,7 +16,7 @@ def main(args):
                     defline_split = defline.split('_')
                     defline_reconstructed = []
                     defline_reconstructed.append(defline_split[0])
-                    defline_reconstructed.append("_".join(defline_split[1:2]))
+                    defline_reconstructed.append("_".join(defline_split[1:3]))
                     defline_reconstructed.append(defline_split[3])
                     defline_split = defline_reconstructed
                 label = defline_split[0]
