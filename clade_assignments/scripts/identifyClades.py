@@ -24,7 +24,8 @@ parser.add_argument('clade_criteria',
 parser.add_argument('--output',
         type = str,
         help = f'path to desired output. Default: {default_out}. '
-        'The output file is a tsv matching sequences names from FASTA to clades'
+        'The output file is a tsv matching sequences names from FASTA to clades',
+        default = default_out
         )
 
 args = parser.parse_args()
@@ -65,7 +66,7 @@ sequenceSize = 1701
 #clade	gene	site	alt
 #3b	HA2	158	N
 cladesConstrains = {}
-with open(fclades, 'r') as f:
+with open(args.clade_criteria, 'r') as f:
 	for line in f:
 		info = (line.strip()).split("\t")
 
@@ -146,7 +147,9 @@ genomesNoClade = []
 
 seqsWithError = []
 
-with open(ffasta, 'r') as f:
+first_seq = True
+
+with open(args.alignment, 'r') as f:
 
 	p_name = re.compile(">(.+)")
 	p_seq  = re.compile("([AaCcGgTtUuMmRrWwSsYyKkVvHhDdBbXxNn]+)")
@@ -266,7 +269,7 @@ with open(ffasta, 'r') as f:
 
 #######################################
 # Summary and write files with clades
-with open(fnameout, 'w') as fout:
+with open(args.output, 'w') as fout:
 
 	fout.write("name\tnbCladesAll\tnbCladesSpec\tcladesAll\tcladesSpec\n")
 
