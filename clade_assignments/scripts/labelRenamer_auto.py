@@ -9,8 +9,8 @@ for file in os.listdir(directory):
          prefix, postfix = in_file.split(".")[0], in_file.split(".")[1]
          newfname = f"{prefix}_clean.{postfix}"
 
-         with open(in_file, 'r') as f:
-             with open(newfname, 'w') as fout:
+         with open("../alignments/" + in_file, 'r') as f:
+             with open("../alignments/" + newfname, 'w') as fout:
                  for line in f:
                      sline = line.strip()
                      if line.startswith('>'):
