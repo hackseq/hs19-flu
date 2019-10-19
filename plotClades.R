@@ -1,5 +1,5 @@
 
-plotClades <- function(tree, cladelist, show.tip.label=F,trysize="big") {
+plotClades <- function(tree, cladelist, show.tip.label=F,trysize="small") {
    # get some colours - get length(myclades$nodes) of them 
   jColors <- c('chartreuse3', 'cornflowerblue', 'darkgoldenrod1', 'peachpuff3',
                'mediumorchid2', 'turquoise3', 'wheat4', 'slategray2')
@@ -23,3 +23,4 @@ plotClades <- function(tree, cladelist, show.tip.label=F,trysize="big") {
   plot(tree, edge.color=tipcols, show.tip.label=F)
 }
   }
+
