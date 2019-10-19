@@ -1,3 +1,6 @@
+library("ape")
+library("phangorn")
+
 getClades2 <- function(rt,MinTotalSize=8, MinTrimSize=8, OverlapCutoff=0.8, TimeFrame=1.4) { 
   # set up
   nTips=length(rt$tip.label)
@@ -79,9 +82,9 @@ getClades2 <- function(rt,MinTotalSize=8, MinTrimSize=8, OverlapCutoff=0.8, Time
   return(list(nodes=nodeids,RP=RP, sizes= allCladeSizes,trimsize= allTrimmedSizes,rejected= rejectFlag,trimclades=allTrimmedClades))
 }
 
-
-tree2018=read.tree("~/tree2018-5.tree")
-df=read.csv("/Users/maryam/Desktop/Research/ImperialCollege/Prediction/MyTree/NewEperiments/ALT0/RecentPrediction_Final.csv")
+setwd("~/github/hs19-flu/visualization")
+tree2018=read.tree("tree2018-5.tree")
+df=read.csv("RecentPrediction_Final.csv")
 df=df[,2:ncol(df)]
 nodeids=df$Clade
 
