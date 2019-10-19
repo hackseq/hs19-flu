@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python3 align_to_outgroup.py
+sh align_to_outgroup.sh
 #Rscript makeNodeLabel.R #for adding node labels
 python3 labelRenamer.py
 sh infer.sh
