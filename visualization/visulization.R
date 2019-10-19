@@ -85,14 +85,40 @@ getClades2 <- function(rt,MinTotalSize=8, MinTrimSize=8, OverlapCutoff=0.8, Time
 setwd("~/github/hs19-flu/visualization")
 tree2018=read.tree("tree2018-5.tree")
 df=read.csv("RecentPrediction_Final.csv")
-df=df[,2:ncol(df)]
+#df=df[,2:ncol(df)]
 nodeids=df$Clade
 
 myclades=getClades2(tree2018)
 Final_trimmedClades=myclades$trimclades[myclades$rejected==0]
 Final_trimmedClades_root=as.numeric(names(which(myclades$rejected==0)))
 
+mat = data.frame(NA, nrow=length(nodeids),ncol=2)
+write.table(mat,"mat.txt")
+for (i in length(nodeids)){
+  #i=2
+  name <- extract.clade(tree2018, nodeids[i])
+  tmp <- c(Name = nodeids[i], tiplabels = list(name$tip.label))
+  write.table(tmp,"mat.txt",append=T)
+}
+datalist = data.frame()
+nodeids
+for (i in length(nodeids)) {
+  # ... make some data
+  name <- extract.clade(tree2018, nodeids[i])
+  tmp <- c(Name = nodeids[i], tiplabels = list(name$tip.label))
+  tmp$i <- i  # maybe you want to keep track of which iteration produced it?
+  datalist[[i]] <- tmp# add it to your list
+}
+library(dplyr)
+big_data <- data.table::rbindlist(datalist)
+big_data <- dplyr::bind_rows(datalist)
+big_data = do.call(rbind, datalist)
+mat <- read.table("mat.txt")
 tr1=extract.clade(tree2018,nodeids[2])
 tr=drop.tip(tr1,setdiff(tr1$tip.label,tree2018$tip.label[Final_trimmedClades[[df[,1][2]]]]), trim.internal = TRUE)
 
-
+tr1
+head(nodeids)
+length(nodeids)
+length(tr1$tip.label)
+tr1
