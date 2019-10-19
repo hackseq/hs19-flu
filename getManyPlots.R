@@ -32,7 +32,7 @@
     theme(plot.title = element_text(size = 8))
   
   # things that are cumulative 
-  c1=ggplot(data=d, aes(x=time, y=Nsplits))+geom_line()+ ggitle("Num tips through time") + 
+  c1=ggplot(data=d, aes(x=time, y=Nsplits))+geom_line()+ ggtitle("Num tips through time") + 
     theme(plot.title = element_text(size = 8)) # tips through time 
   c2=ggplot(dg, aes(x=time,y=Ngdist))+geom_line()+
     ggtitle("Lineages through genetic distance pseudo-time") + 
