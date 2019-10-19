@@ -1,11 +1,11 @@
 import os
 
-directory = os.fsencode(".")
+directory = os.fsencode("../alignments")
 
 for file in os.listdir(directory):
      filename = os.fsdecode(file)
      if filename.endswith(".fa"):
-         in_file = filename;
+         in_file = filename
          prefix, postfix = in_file.split(".")[0], in_file.split(".")[1]
          newfname = f"{prefix}_clean.{postfix}"
 
