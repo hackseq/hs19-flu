@@ -1,15 +1,17 @@
 # hs19-flu
 
+## Summary and outline
 Project summary: We aim to predict which variants of influenza virus will succeed and circulate in the next 1-2 years. 
 We have previously established a "proof of principle" that we can do this task fairly well using phylogenetic trees reconstructed from influenza HA sequences.
 
+### Previous approach
 Briefly, in that work, we selected subtrees from large-scale phylogenies. These were of varying size (10-35). Each subtree contains a set of closely-related flu sequences. We looked to see whether each subtree grew into the future, removing subtrees that arose so recently that we don't know yet whether they grew into their future. For example, if a subtree only started in April 2018 and our original dataset ended in May 2018 then we don't know whether the subtree was successful. Success was categorical: 1 if the size of the subtree increased by a factor of at least 1.1 (for example) in a fixed time frame, and 0 otherwise. 
 
 Next, we computed a suite of features of each subtree, seen in its own right as a phylogenetic tree. Features included tree imbalance (measures of asymmetry in the tree), features derived from network science (centrality, spectral features) and features derived from the trees' branch lengths. We also computed a few simple feature of the HA sequences corresponding to the tips. 
 
 We then trained machine learning methods to distinguish successful from unsuccessful trees, holding back some data to test the predictions. We found a reasonably good accuracy, did various comparisons to previous work, and performed a range of testing (for exmaple, training on one strain of influenza and testing on others). 
 
-Here, we are expanding that work in 3 themes. 
+Here, we are expanding that work in 3-4 themes. 
 
 ## Theme 1 - design vaccines with our methods, and compare them to WHO-selected seasonal vaccines
 
@@ -22,6 +24,10 @@ This is a key next step for the flu prediction project, because it will allow us
 ## Theme 2 - improve on the central model in the preprint 
 
 There are a number of relatively straightforward improvements to make on the code we already used in the preprint. These include using regression instead of classification, modifying the threshold used for defining "success" and expanding previous predictions in to 2019. 
+
+## Theme 3 - explore alternative learning methods 
+
+Maryam suggested exploring whether we could use graph neural networks instead of creating data frames with features that summarise the structure of the subtrees. We think that solving this problem is not feasible during this weekend, but perhaps setting up the problem is. We have team members reading about the required inputs for graph neural networks and thinking through how we would set up our problem in that kind of structure. 
 
 ## Theme 4 - use simpler models and larger clades of trees 
 
