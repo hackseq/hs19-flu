@@ -31,18 +31,14 @@ parser.add_argument('--output',
         'The output file is a tsv matching sequences names from FASTA to clades',
         default = default_out
         )
-
 args = parser.parse_args()
+
+print(f"Output to: {args.output}")
 ###########################################
 
 ###########################################
-# Input/Output files: example
+# Example genbank reference:
 
-ffasta   = 'aligned.fasta'      # Input: FASTA file correctly aligned (1701 nucleotides) 
-fclades  = 'clades_h3n2_ha.tsv' # Input: Criteria to belong to a clade
-fnameout = 'FASTA2018-5_clades.tsv' # Output: TSV file with sequence names and its clades 
-
-###########################################
 # A/Beijing/32/1992 --> h3h2_ha_outgroup.gb
 # CDS             1..1701
 #                 /db_xref="GI:857408"
