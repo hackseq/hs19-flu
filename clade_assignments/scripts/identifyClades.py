@@ -31,18 +31,14 @@ parser.add_argument('--output',
         'The output file is a tsv matching sequences names from FASTA to clades',
         default = default_out
         )
-
 args = parser.parse_args()
+
+print(f"Output to: {args.output}")
 ###########################################
 
 ###########################################
-# Input/Output files: example
+# Example genbank reference:
 
-ffasta   = 'aligned.fasta'      # Input: FASTA file correctly aligned (1701 nucleotides) 
-fclades  = 'clades_h3n2_ha.tsv' # Input: Criteria to belong to a clade
-fnameout = 'FASTA2018-5_clades.tsv' # Output: TSV file with sequence names and its clades 
-
-###########################################
 # A/Beijing/32/1992 --> h3h2_ha_outgroup.gb
 # CDS             1..1701
 #                 /db_xref="GI:857408"
@@ -68,6 +64,9 @@ with open(args.reference, 'r')as gbfile:
 			if(feature.qualifiers['gene'][0] == 'HA2'):
 				HA2_beg = int(feature.location.start)  + 1
 				HA2_end = int(feature.location.end)
+			if(feature.qualifiers['gene'][0] == 'SigPep'):
+				SigPep_beg = int(feature.location.start)  + 1
+				SigPep_end = int(feature.location.end)
 
 ###########################################
 # Read clade constrains 
@@ -175,6 +174,7 @@ with open(args.alignment, 'r') as f:
 					# Translate to amino-acid
 					seqAA_HA1 = translateToAA(seq[(HA1_beg-1):HA1_end]) # HA1_beg-1: Python starts at 0 / HA1_end it should include the end position
 					seqAA_HA2 = translateToAA(seq[(HA2_beg-1):HA2_end])
+					seqAA_SigPep = translateToAA(seq[(SigPep_beg-1):SigPep_end])
 
 					# Check if sequence belongs to one or more clades
 					clades = [] 
@@ -204,6 +204,8 @@ with open(args.alignment, 'r') as f:
 									aa = seqAA_HA1[site-1] # Since Python starts at 0
 								elif gene == "HA2":
 									aa = seqAA_HA2[site-1] # Since Python starts at 0
+								elif gene == "SigPep":
+									aa = seqAA_SigPep[site-1] # Since Python starts at 0
 
 								if aa:
 									uncertainCodon = aa[0] 
