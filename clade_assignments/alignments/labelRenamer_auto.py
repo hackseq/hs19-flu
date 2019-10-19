@@ -7,7 +7,7 @@ for file in os.listdir(directory):
      if filename.endswith(".fa"):
          in_file = filename;
          prefix, postfix = in_file.split(".")[0], in_file.split(".")[1]
-         newfname = f"{prefix}_clean_labels.{postfix}"
+         newfname = f"{prefix}_clean.{postfix}"
 
          with open(in_file, 'r') as f:
              with open(newfname, 'w') as fout:
