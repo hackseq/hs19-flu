@@ -1,4 +1,4 @@
-function getManyPlots(myclade, alignment, gdtree) {
+ getManyPlots <- function(myclade, alignment, gdtree) {
   ## compute things 
   
   # things that are NOT cumulative 
@@ -49,4 +49,5 @@ function getManyPlots(myclade, alignment, gdtree) {
   dev.new()
   multiplot(p1,c1,c2,c3,c4, ncol=1)
   
-}
+ }
+ 
