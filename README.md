@@ -1,4 +1,4 @@
-# hs19-flu
+# FluFighters
 
 ## Summary and outline
 Project summary: We aim to predict which variants of influenza virus will succeed and circulate in the next 1-2 years. 
