@@ -76,16 +76,25 @@ for (i in seq_along(clades_2017$nodes)) {
 tree_2017_plot <- tree_2017_plot + theme_tree2()
 tree_2017_plot
 
-ratios = c()
-
-for (i in seq_along(clades_2016$clades)) {
-  clade_2016_labels <- flutreeH3N2_HA_2016$tip.label[clades_2016$clades[[i]]]
-  clade_2016_mrca <- findMRCA(flutreeH3N2_HA_2016, clade_2016_labels)
-  clade_2017_mrca <- findMRCA(flutreeH3N2_HA_2017, clade_2016_labels)
-
-  clade_2016_mrca_descendants <- getDescendants(flutreeH3N2_HA_2016, clade_2016_mrca)
-  clade_2017_mrca_descendants <- getDescendants(flutreeH3N2_HA_2017, clade_2017_mrca)
-  ratio <- length(clade_2017_mrca_descendants) / length(clade_2016_mrca_descendants)
-  ratios <- append(ratios, ratio)
+#' @param tree1 phylogenetic tree, truncated at an earlier time than tree2
+#' @param tree2 phylogenetic tree, truncated at an later time than tree1
+#' @param min_cl
+growth_ratios_for_clades <- function(tree1, tree2, min_clade_size, max_clade_size){
+  tree1_clades <- pickClades(tree1, min_clade_size, max_clade_size)
+  ratios <- c()
+  for (i in seq_along(tree1_clades$clades)) {
+    tree1_clade_tip_labels <- tree1$tip.label[tree1_clades$clades[[i]]]
+    tree1_clade_mrca <- findMRCA(tree1, tree1_clade_tip_labels)
+    tree2_clade_mrca <- findMRCA(tree2, tree1_clade_tip_labels)
+    tree1_clade_mrca_descendants <- getDescendants(tree1, tree1_clade_mrca)
+    tree2_clade_mrca_descendants <- getDescendants(tree2, tree2_clade_mrca)
+    ratio <- length(tree2_clade_mrca_descendants) / length(tree1_clade_mrca_descendants)
+    ratios <- append(ratios, ratio)
+  }
+  ratios
 }
+
+growth_ratios_for_clades(flutreeH3N2_HA_2014, flutreeH3N2_HA_2016, 200, 400)
+
+
 
