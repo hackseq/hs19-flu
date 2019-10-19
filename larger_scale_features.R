@@ -52,7 +52,7 @@ gendistprofiles <- function(tree, tipbins, aln=NULL,scale=TRUE,gdtree=NULL, mode
       myvals=unique(mycharmat[,x])
       return(length(myvals[which(myvals != "-")]))
       }, FUN.VALUE = 1)
-    isDiverse = vapply(1:ncol(mycharmat), function(x) { !hasminus[x] & (nposs[x]>1)}, FUN.VALUE = T)
+    isDiverse = vapply(1:ncol(mycharmat), function(x)  (nposs[x]>1) , FUN.VALUE = T)
     isDiverseAnyTime= (isDiverse | isDiverseAnyTime)
     cum.diversity[k] = sum(isDiverseAnyTime)/sf 
     now.diversity[k]=sum(isDiverse)/sf
