@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-
+python3 -m pip install git+https://github.com/jeetsukumaran/DendroPy.git
 python3 ./identifyClades.py ../alignments/ALIGNED-B_yam_clean.fa ../clade_defs/clades_yam_ha.tsv --reference ../references/reference_yam_ha.gb --output ../assignments/B_yam.tsv
 
 python3 ./identifyClades.py ../alignments/ALIGNED-B_vic_clean.fa ../clade_defs/clades_vic_ha.tsv --reference ../references/reference_vic_ha.gb --output ../assignments/B_vic.tsv
