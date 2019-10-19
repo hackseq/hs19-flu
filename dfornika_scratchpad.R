@@ -11,6 +11,7 @@ library(ggplot2)
 library(phytools)
 
 source("getClades_size.R")
+source("")
 
 
 #' @param labels_clades_dates_path path to three-column csv file containing labels, clade names and dates
@@ -37,7 +38,8 @@ truncate_tree_by_date <- function(tree, labels_dates, truncation_date) {
 
 #' @param tree1 phylogenetic tree, truncated at an earlier time than tree2
 #' @param tree2 phylogenetic tree, truncated at an later time than tree1
-#' @param min_cl
+#' @param min_clade_size minimum clade size
+#' @param max_clade_size max clade size
 growth_ratios_for_clades <- function(tree1, tree2, min_clade_size, max_clade_size){
   tree1_clades <- pickClades(tree1, min_clade_size, max_clade_size)
   ratios <- c()
@@ -50,7 +52,7 @@ growth_ratios_for_clades <- function(tree1, tree2, min_clade_size, max_clade_siz
     ratio <- length(tree2_clade_mrca_descendants) / length(tree1_clade_mrca_descendants)
     ratios <- append(ratios, ratio)
   }
-  ratios
+  data.frame("clade" = tree1_clades$nodes, "growth_ratio" = ratios)
 }
 
 # alignB_labels_clades_dates <- load_labels_clades_dates("Data/alignB_labels_clades_dates.csv")
@@ -94,7 +96,7 @@ tree_2017_plot <- tree_2017_plot + theme_tree2()
 tree_2017_plot
 
 
-growth_ratios_for_clades(flutreeH3N2_HA_2014, flutreeH3N2_HA_2016, 200, 400)
+growth_ratios_for_clades(flutreeH3N2_HA_2016, flutreeH3N2_HA_2017, 200, 400)
 
 
 
