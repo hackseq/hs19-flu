@@ -84,7 +84,7 @@ lttgendist <- function(timetree, gdtree) {
 #' @return a 2-column matrix, genetic dist from root and number of splitting events before that distance. 
 divttgendist <- function(timetree, gdtree,maxdate=NULL) {
   mytree = drop.tip(gdtree, which( !(gdtree$tip.label  %in% timetree$tip.label))) # tree of only my tips
-  x = ltt.plot.coords(tree,backward = F)
+  x = ltt.plot.coords(timetree,backward = F)
   # take all the negative increments out and just have the births
   toRemove = 1+which(diff(x[,2])<0)
   x=x[-toRemove,]
