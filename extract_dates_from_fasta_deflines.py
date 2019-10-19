@@ -4,6 +4,12 @@ import argparse
 import datetime
 
 def main(args):
+    """
+    Take a fasta file with a deflines like:
+    >CY083910_A/Aalborg/INS132/2009_2009/11/23
+    ...and parses them to a csv file with three columns (label, clade name, date)
+    CY083910,A/Aalborg/INS132/2009,2009-11-23
+    """
     with open(args.fasta_input, 'r') as f:
         for line in f:
             if line[0] == '>':
@@ -12,12 +18,12 @@ def main(args):
                     defline_split = defline.split('_')
                 # some clade names include '_', so they get split.
                 # will reconstruct them
-                elif (len(defline.split('_')) == 4):
+                elif (len(defline.split('_')) > 3):
                     defline_split = defline.split('_')
-                    defline_reconstructed = []
-                    defline_reconstructed.append(defline_split[0])
-                    defline_reconstructed.append("_".join(defline_split[1:3]))
-                    defline_reconstructed.append(defline_split[3])
+                    label = defline_split[0]
+                    clade_name = "_".join(defline_split[1:-1])
+                    date = defline_split[-1]
+                    defline_reconstructed = [label, clade_name, date]
                     defline_split = defline_reconstructed
                 label = defline_split[0]
                 clade_name = defline_split[1]

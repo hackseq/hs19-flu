@@ -11,7 +11,7 @@ TimeFrame=3.4
 nodeids=df$Clade
 nTips=length(tree$tip.label)
 # # tips within the TimeFrame for each node
-allTrimmedClades = sapply(nodeids, function(x) {  myTipDes=allD[[x]][allD[[x]]<=nTips]
+allTrimmedClades = sapply(nodeids, function(x) {myTipDes=allD[[x]][allD[[x]]<=nTips]
 myTipTimes=allHeights[myTipDes] # here, would need something like allDates[myTipDesc]
 return(myTipDes[myTipTimes <= allHeights[x]+TimeFrame]) })
 # # sizes of trimmed clades 
