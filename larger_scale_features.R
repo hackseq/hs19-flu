@@ -1,3 +1,7 @@
+library(ape)
+library(phangorn)
+library(seqinr)
+
 #' @param tree a phylogenetic tree
 #' @param maxdate - the date of the most recent tip in the tree, in numerical format (or a format that can be added to a number) 
 #' @return a 2-column matrix, time and number of splitting events before that time. times are splitting times of the tree
@@ -9,7 +13,7 @@ divtt <- function(tree, maxdate=NULL) {
   x=x[-toRemove,]
   x[,2]=1:nrow(x)
   if (!is.null(maxdate)) {x[,1]= x[,1]+ maxdate - max(node.depth.edgelength(tree))} 
-  return(data.frame(time=x[,1], N=x[,2]))
+  return(data.frame(time=x[,1], Nsplits=x[,2]))
 }
 
 #' @param tree a phylogenetic tree
@@ -60,7 +64,7 @@ gendistprofiles <- function(tree, tipbins, aln=NULL,scale=TRUE,gdtree=NULL, mode
       now.diversity[k] = sum(thistree$edge.length)
       allthesetips = tree$tip.label[which(as.numeric(tipbins$group) <= k)]
       cum.diversity[k]=sum( drop.tip(tree,which( !(tree$tip.label %in% allthesetips)))$edge.length)
-      num.tips[k]=length(myind)
+      num.tips[k]=length(thesetips)
     }
   }
   return(data.frame(cum.diversity=cum.diversity, now.diversity=now.diversity,
@@ -71,8 +75,8 @@ gendistprofiles <- function(tree, tipbins, aln=NULL,scale=TRUE,gdtree=NULL, mode
 #' @param gdtree a phylogenetic tree in units of genetic distance, which contains all tips of the timetree
 #' @return lineages through genetic distance space, using the part of gdtree containing the tips in timetree
 lttgendist <- function(timetree, gdtree) {
- mytree = drop.tip(gdtree, which( !(gdtree$tip.label  %in% timetree))) # tree of only my tips
- return(ltt.plot.coords(mytree))
+ mytree = drop.tip(gdtree, which( !(gdtree$tip.label  %in% timetree$tip.label))) # tree of only my tips
+ return(ltt.plot.coords(mytree,backward = F))
 }
   
 #' @param tree a phylogenetic tree
@@ -86,7 +90,7 @@ divttgendist <- function(timetree, gdtree,maxdate=NULL) {
   x=x[-toRemove,]
   x[,2]=1:nrow(x)
   if (!is.null(maxdate)) {x[,1]= x[,1]+ maxdate - max(node.depth.edgelength(tree))} 
-  return(data.frame(time=x[,1],N=x[,2]))
+  return(data.frame(time=x[,1],Ngdist=x[,2]))
 }
 
 
