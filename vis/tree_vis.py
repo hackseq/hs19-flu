@@ -1,38 +1,67 @@
 from ete3 import Tree, NodeStyle, TreeStyle
+import csv
 
-t = Tree("../clade_assignments/trees/flutree2018_5.nwk")
 
-# Basic tree style
-ts = TreeStyle()
-ts.show_leaf_name = True
-ts.scale =  120
-# Creates an independent node style for each node, which is
-# initialized with a red foreground color.
-r = 0;
-g = 0;
-b = 0;
-for n in t.traverse():
-    if(n.is_leaf()):
-        print(n.name)
-        print(n.dist)
-        nstyle = NodeStyle()
-        print("#" + str(hex(r))[2:]+str(hex(g))[2:]+str(hex(b))[2:])
-        nstyle["fgcolor"] ="#" + str(hex(r))[2:]+str(hex(g))[2:]+str(hex(b))[2:]
-        nstyle["size"] = 15
-        n.set_style(nstyle)
-        if(r < 255):
-            r +=1
-        elif(g < 255):
-            g += 1
-        elif(b < 255):
-            b +=1
-        elif(b >= 255):
-            r = 0
-            g = 0
-            b = 0
+def visualize_tree(csv_path, newick, threshold):
+    """
+    Shows the tree in an ETE window
+    :param csv_path: Information about nodes/tips that need to be displayed.
+    :param newick: Phylo tree in newick format.
+    :param threshold: Threshold of when to show as green, otherwise red
+    :return: null
+    """
+    results = list(csv.reader(open(csv_path)))
+    # Load tree with ETE
+    t = Tree(newick)
 
-# Let's now modify the aspect of the root node
-t.img_style["size"] = 30
-t.img_style["fgcolor"] = "blue"
+    # Stylize the entire tree
+    ts = TreeStyle()
+    ts.show_leaf_name = True
+    ts.branch_vertical_margin = 99
+    ts.scale = 9999
 
-t.show(tree_style=ts)
+    # Define colours
+    green = "#00ff00"
+    red = "#ff0000"
+    grey = "#9c9c9c"
+
+    # i is just a variable used for debugging
+    i = 0
+
+    # Traverse through the entire tree, processing all tips
+    for n in t.traverse():
+        if n.is_leaf():
+            tipPredicted = False
+            for result in results:
+                if result[1] == n.name:
+                    tipPredicted = True
+                    if float(result[2]) > threshold:
+                        color = green
+                    else:
+                        color = red
+                    nstyle = NodeStyle()
+                    nstyle["fgcolor"] = color
+                    nstyle["size"] = 500
+                    n.set_style(nstyle)
+                    i += 1
+                    break
+            if not tipPredicted:
+                n.delete()
+        else:
+            for result in results:
+                if result[1] == n.name:
+                    if float(result[2]) > threshold:
+                        color = green
+                    else:
+                        color = red
+                    nstyle = NodeStyle()
+                    nstyle["fgcolor"] = color
+                    nstyle["size"] = 99
+                    n.set_style(nstyle)
+                    i += 1;
+                    break
+
+    t.show(tree_style=ts)
+
+
+visualize_tree("../visualization/result1.csv", "../clade_assignments/trees/flutree2018_5.nwk", 0.8)
