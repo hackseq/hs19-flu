@@ -26,14 +26,13 @@ def visualize_tree(csv_path, newick, select_clade = "default"):
     # Stylize the entire tree
     ts = TreeStyle()
     ts.layout_fn = layout
-
     # We will add node names manually
     ts.show_leaf_name = False
     # Show branch data
     ts.show_branch_length = True
     ts.show_branch_support = True
     ts.branch_vertical_margin = 99
-    ts.scale = 999
+    ts.scale = 2000
 
     # Define colours
     green = "#00ff00"
@@ -74,4 +73,4 @@ def layout(node):
         faces.add_face_to_node(C, node, 0, position="float")
 
 
-visualize_tree("../visualization/result2.csv", "../clade_assignments/trees/flutree2018_5.nwk", select_clade="3c2")
+visualize_tree("../visualization/result2.csv", "../clade_assignments/trees/flutree2018_5.nwk", select_clade="3c3.A")
