@@ -81,23 +81,28 @@ multiplot(p1,c1,c2,c3,c4, ncol=1)
 
 ## have made all that into a function getManyPlots.R
 
+H3N2_labels_clades_dates <- load_labels_clades_dates("Data/H3N2_labels_clades_dates.csv")
 
-flu2014 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2014-02-28"))
-comp2014 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2015-05-30"))
+flu2014 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2014-02-28"))
+comp2014 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2015-05-30"))
+clades2014 <- pickClades(flu2014, 200, 400)
 
-flu2015 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2015-02-28"))
-comp2015 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2016-05-30"))
+flu2015 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2015-02-28"))
+comp2015 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2016-05-30"))
+clades2015 <- pickClades(flu2015, 200, 400)
 
-flu2016 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2016-02-28"))
-comp2016 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2017-05-30"))
+flu2016 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2016-02-28"))
+comp2016 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2017-05-30"))
+clades2016 <- pickClades(flu2016, 200, 400)
 
-flu2017 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2017-02-28"))
-comp2017 <- truncate_tree_by_date(flu, alignH3N2_labels_clades_dates, as.Date("2018-05-30"))
+flu2017 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2017-02-28"))
+comp2017 <- truncate_tree_by_date(flu, H3N2_labels_clades_dates, as.Date("2018-05-30"))
+clades2017 <- pickClades(flu2017, 200, 400)
 
-growth2014
-growth2015
-growth2016
-growth2017
+growth2014 <- growth_ratios_for_clades(flu2014, comp2014, clades2014)
+growth2015 <- growth_ratios_for_clades(flu2015, comp2015, clades2015)
+growth2016 <- growth_ratios_for_clades(flu2016, comp2016, clades2016)
+growth2017 <- growth_ratios_for_clades(flu2017, comp2017, clades2017)
 
 
 getManyPlots(extract.clade(flu2016, c2016$nodes[15]), aln, gdh3n2)
