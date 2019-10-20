@@ -1,13 +1,14 @@
 
-plotClades <- function(tree, cladelist, show.tip.label=F,trysize="small") {
+plotClades <- function(tree, cladelist, show.tip.label=F,trysize="big") {
    # get some colours - get length(myclades$nodes) of them 
   jColors <- c('chartreuse3', 'cornflowerblue', 'darkgoldenrod1', 'peachpuff3',
                'mediumorchid2', 'turquoise3', 'wheat4', 'slategray2')
   mycols=sample(jColors, length(cladelist$nodes), replace=TRUE)
   # define the groups 
   # define cols
+  groups=cladelist$clades 
   if (trysize=="small") {
-    groups=cladelist$clades 
+   
  ecol= edge.color(tree, groups,col=mycols) 
  plot(tree, edge.color = ecol,no.margin = TRUE, edge.width = 2, show.tip.label= show.tip.label)
 } else {
