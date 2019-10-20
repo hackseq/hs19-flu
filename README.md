@@ -29,6 +29,8 @@ There are a number of relatively straightforward improvements to make on the cod
 
 Current status: Theme 2 folks have tested regression, checked the quality of predictions on 2019 data, explored lasso regression (for feature selection) and are linking with Theme 1 re WHO clades and vaccine strain selection. 
 
+Our preduction for the success of the subtrees in 2019 was currect in 70% of the cases when we consider the majority vote between our general model and 10 models from 10-folds cross validation. In 82% of the cases, at least one of our model could curectly predict the success of the subtrees. We also found this paper "Antigenicsites of H1N1 influenza virus hemagglutinin revealed by natural isolates and inhibition assays" which identified the epitope sites of the H1N1 sequences. 
+
 ## Theme 3 - explore alternative learning methods 
 
 Maryam suggested exploring whether we could use graph neural networks instead of creating data frames with features that summarise the structure of the subtrees. We think that solving this problem is not feasible during this weekend, but perhaps setting up the problem is. We have team members reading about the required inputs for graph neural networks and thinking through how we would set up our problem in that kind of structure. 
