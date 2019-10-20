@@ -11,7 +11,6 @@ library(ggplot2)
 library(phytools)
 
 source("getClades_size.R")
-source("")
 
 
 #' @param labels_clades_dates_path path to three-column csv file containing labels, clade names and dates
