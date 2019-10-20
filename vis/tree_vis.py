@@ -1,31 +1,34 @@
 from ete3 import Tree, NodeStyle, TreeStyle
 import csv
 
+
 def visualize_tree(csv_path, newick, threshold):
     """
     Shows the tree in an ETE window
     :param csv_path: Information about nodes/tips that need to be displayed.
     :param newick: Phylo tree in newick format.
     :param threshold: Threshold of when to show as green, otherwise red
-    :return:
+    :return: null
     """
     results = list(csv.reader(open(csv_path)))
-
-
+    # Load tree with ETE
     t = Tree(newick)
 
-    # Basic tree style
+    # Stylize the entire tree
     ts = TreeStyle()
     ts.show_leaf_name = True
     ts.branch_vertical_margin = 99
     ts.scale = 9999
-    # Creates an independent node style for each node, which is
-    # initialized with a red foreground color.
 
+    # Define colours
     green = "#00ff00"
     red = "#ff0000"
     grey = "#9c9c9c"
+
+    # i is just a variable used for debugging
     i = 0
+
+    # Traverse through the entire tree, processing all tips
     for n in t.traverse():
         if n.is_leaf():
             tipPredicted = False
@@ -60,4 +63,5 @@ def visualize_tree(csv_path, newick, threshold):
 
     t.show(tree_style=ts)
 
-visualize_tree("../visualization/result1.csv","../clade_assignments/trees/flutree2018_5.nwk",0.8)
+
+visualize_tree("../visualization/result1.csv", "../clade_assignments/trees/flutree2018_5.nwk", 0.8)
