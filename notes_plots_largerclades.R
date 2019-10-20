@@ -1,20 +1,23 @@
-
-timeinfo = read.csv("Data/alignH3N2_labels_clades_dates.csv", header = F); head(timeinfo)
-
 library(seqinr)
-aln=read.fasta("Data/alignH3N2.fa")
+
+source("getClades_size.R")
+source("plotClades.R")
+source("larger_scale_features.R")
+
+timeinfo = read.csv("Data/H3N2_labels_clades_dates.csv", header = F); head(timeinfo)
+aln=read.fasta("Data/H3N2.fa")
 gdh3n2 = read.tree("rootedRAxML_H3N2.tree")
 
 #############################################
 # notes and testing my larger-scale features
 #############################################
 
-flu=read.tree("flutreeH3N2_HA.tree")
+flu=read.tree("timetreeH3N2copy.nwk")
 gdh3n2=read.tree("rootedRAxML_H3N2.tree")
 
 clades2019= pickClades(flu, minSize = 300, maxSize = 500)
 
-plotClades(flu, clades2019, show.tip.label = F)
+plotClades(flu, clades2019, show.tip.label = F, trysize = "big")
 # my functions are timechop (sets time bins), divtt, ltt, gendistprofiles (diversity through time),
 # lttgendist,  and divttgendist 
 myclade = extract.clade(flu, node = clades2019$nodes[6])
