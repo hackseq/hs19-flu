@@ -1,7 +1,20 @@
 import pandas as pd
 from tqdm import tqdm
 import operator
-#For use in R
+
+'''
+Documentation
+This file is used to make a result3.csv file that matches WHO clades and tips from the subtree model
+WHO_max finds the WHO clades related to each tip and by majority rule assigns that WHO clade to a subtree
+percent_common gives the percentage of tips with the WHO_max out of the total number of tips from a subtree
+pred is the prediction from the model's output
+This is the simple version to be used in other languages such as R for easier loading of the csv file
+
+INPUT:
+Clade assignments tsv file relating the clades from the model to the WHO clades
+Predictions csv file from the model with the subtree clades from the model and the labels and forecasts(predictions)
+Metadata csv file that contains the subtree clades from the model and the tips contained in it separated by spaces
+'''
 
 who_df = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/clade_assignments/assignments/H3N2_h3n2.tsv', sep='\t')
 predictions = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/visualization/RecentPrediction_Final.csv')

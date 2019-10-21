@@ -2,6 +2,19 @@ import pandas as pd
 from tqdm import tqdm
 import operator
 
+'''
+Documentation
+This file is used to make a result4.csv file that matches WHO clades and tips from the subtree model
+This is a more detailed version of the same python script with the simple suffix
+The extra details contained here are that the WHO_max can be a list if there are multiple max WHO clades with the same percentage of tips
+We also give a list of all the WHO clades in the subtree and it's percentage from the total
+
+INPUT:
+Clade assignments tsv file relating the clades from the model to the WHO clades
+Predictions csv file from the model with the subtree clades from the model and the labels and forecasts(predictions)
+Metadata csv file that contains the subtree clades from the model and the tips contained in it separated by spaces
+'''
+
 who_df = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/clade_assignments/assignments/H3N2_h3n2.tsv', sep='\t')
 predictions = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/visualization/RecentPrediction_Final.csv')
 meta_df = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/visualization/output.txt', names=['name', 'tips'])

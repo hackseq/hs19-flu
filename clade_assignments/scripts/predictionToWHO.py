@@ -1,6 +1,19 @@
 import pandas as pd
 from tqdm import tqdm
 
+'''
+Documentation
+This file is used to make a result2.csv file that matches WHO clades and tips from the subtree model
+The size tells you in on how many subtrees that specific tip is contained and the ratio tells you the ratio of
+the tips that were predicted correctly by the model for that specific WHO clade
+
+INPUT:
+Clade assignments tsv file relating the clades from the model to the WHO clades
+Predictions csv file from the model with the subtree clades from the model and the labels and forecasts(predictions)
+Metadata csv file that contains the subtree clades from the model and the tips contained in it separated by spaces
+'''
+
+
 who_df = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/clade_assignments/assignments/H3N2_h3n2.tsv', sep='\t')
 predictions = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/visualization/RecentPrediction_Final.csv')
 meta_df = pd.read_csv('/Users/ivan/Documents/repos/hs19-flu/visualization/output.txt', names=['name', 'tips'])
