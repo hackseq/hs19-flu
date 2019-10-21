@@ -1,3 +1,5 @@
+# This script is for going from the Rdata files with the tree predictions to nwk files
+
 library("ape")
 load("flutreeB_NA.Rdata")
 labeled <- makeNodeLabel(flutree)
