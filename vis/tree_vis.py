@@ -41,7 +41,7 @@ def visualize_tree(csv_path, newick, select_clade = "default"):
 
     # i is just a variable used for debugging
     i = 0
-
+    # clades = {"3c","3c2","3c2.A","3c3","3c3.A","A1","A1a","3c","3c","3c","3c","3c","3c","3c","3c"}
     # Traverse through the entire tree, processing all tips
     for n in t.traverse():
         if n.is_leaf():
@@ -51,6 +51,7 @@ def visualize_tree(csv_path, newick, select_clade = "default"):
                     if result[1] != select_clade:
                         break
                     n.add_feature("color", colors[round(float(result[4]) * 999)].get_hex())
+
                     isDeleteNode = False
                     i += 1
                     break
